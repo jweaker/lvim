@@ -11,6 +11,10 @@ vim.opt.relativenumber = true
 lvim.format_on_save = true
 lvim.transparent_window = false
 lvim.colorscheme = "onedark"
+lvim.keys.normal_mode["<Esc>"] = ":noh <CR>"
+lvim.keys.normal_mode["<Tab>"] = "<cmd>BufferLineCycleNext<CR>"
+lvim.keys.normal_mode["<S-Tab>"] = "<cmd>BufferLineCyclePrev<CR>"
+
 
 linters.setup {
   { command = "eslint_d", filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" } },
