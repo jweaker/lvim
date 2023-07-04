@@ -5,6 +5,7 @@
 
 local linters = require "lvim.lsp.null-ls.linters"
 local formatters = require "lvim.lsp.null-ls.formatters"
+local lsp_manager = require("lvim.lsp.manager")
 
 vim.opt.relativenumber = true
 
@@ -15,6 +16,14 @@ lvim.keys.normal_mode["<Esc>"] = ":noh <CR>"
 lvim.keys.normal_mode["<Tab>"] = "<cmd>BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-Tab>"] = "<cmd>BufferLineCyclePrev<CR>"
 
+lsp_manager.setup("tsserver", {
+  single_file_support = true,
+  filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" }
+})
+lsp_manager.setup("lua_ls", {
+  single_file_support = true,
+  filetypes = { "lua" }
+})
 
 linters.setup {
   { command = "eslint_d", filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" } },
