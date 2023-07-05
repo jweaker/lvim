@@ -24,6 +24,10 @@ lsp_manager.setup("lua_ls", {
   single_file_support = true,
   filetypes = { "lua" }
 })
+lsp_manager.setup("emmet_ls", {
+  single_file_support = true,
+  filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact", "html" }
+})
 
 linters.setup {
   { command = "eslint_d", filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" } },
