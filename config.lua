@@ -6,6 +6,7 @@
 local linters = require "lvim.lsp.null-ls.linters"
 local formatters = require "lvim.lsp.null-ls.formatters"
 local lsp_manager = require("lvim.lsp.manager")
+local actions = require "telescope.actions"
 
 vim.opt.relativenumber = true
 
@@ -15,7 +16,13 @@ lvim.colorscheme = "onedark"
 lvim.keys.normal_mode["<Esc>"] = ":noh <CR>"
 lvim.keys.normal_mode["<Tab>"] = "<cmd>BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-Tab>"] = "<cmd>BufferLineCyclePrev<CR>"
+
+lvim.keys.normal_mode["<C-p>"] = "<cmd>Telescope git_files<CR>"
+lvim.builtin.which_key.mappings["f"] = { "<cmd>Telescope live_grep<CR>", "live grep" }
+
 lvim.keys.insert_mode["<C-BS>"] = "<C-W>"
+lvim.builtin.telescope.defaults.mappings.i["<C-j>"] = actions.move_selection_next
+lvim.builtin.telescope.defaults.mappings.i["<C-k>"] = actions.move_selection_previous
 lvim.builtin.treesitter.rainbow.enable = true
 lvim.builtin.treesitter.autotag.enable = true
 lvim.builtin.treesitter.autotag.filetypes = { "html", "xml", "typescript", "typescriptreact", "javascript",
