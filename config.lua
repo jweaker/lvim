@@ -52,10 +52,15 @@ lsp_manager.setup("emmet_ls", {
   single_file_support = true,
   filetypes = { "xml", "html" }
 })
+lsp_manager.setup("bashls", {
+  single_file_support = true,
+  filetypes = { "zsh", "bash", "sh", "dash" }
+})
 
 linters.setup {
-  { command = "eslint_d", filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" } },
-  { command = "jsonlint", filetypes = { "json" } }
+  { command = "eslint_d",   filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" } },
+  { command = "jsonlint",   filetypes = { "json" } },
+  { command = "shellcheck", filetypes = { "dash", "bash", "sh" } }
 }
 
 formatters.setup {
