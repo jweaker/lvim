@@ -40,6 +40,10 @@ lsp_manager.setup("tsserver", {
   single_file_support = true,
   filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" }
 })
+lsp_manager.setup("jsonls", {
+  single_file_support = true,
+  filetypes = { "json" }
+})
 lsp_manager.setup("lua_ls", {
   single_file_support = true,
   filetypes = { "lua" }
@@ -51,6 +55,7 @@ lsp_manager.setup("emmet_ls", {
 
 linters.setup {
   { command = "eslint_d", filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" } },
+  { command = "jsonlint", filetypes = { "json" } }
 }
 
 formatters.setup {
