@@ -35,7 +35,6 @@ vim.api.nvim_create_autocmd('DirChanged', {
   end,
 })
 lvim.builtin.cmp.sources[#lvim.builtin.cmp.sources + 1] = { name = "cmp_tabnine" }
-
 lsp_manager.setup("tsserver", {
   single_file_support = true,
   filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" }
@@ -76,7 +75,7 @@ lvim.plugins = {
     "navarasu/onedark.nvim",
     config = function()
       require('onedark').setup {
-        style = 'warmer'
+        style = 'dark'
       }
       require('onedark').load()
     end
@@ -103,6 +102,31 @@ lvim.plugins = {
         autostart = true,
       }
     end
+  },
+
+  {
+    'WhoIsSethDaniel/mason-tool-installer.nvim',
+    lazy = false,
+    config = function()
+      require('mason-tool-installer').setup {
+        ensure_installed = {
+          "typescript-language-server",
+          "jsonls",
+          "lua_ls",
+          "emmet_ls",
+          "bash-language-server",
+          "eslint_d",
+          "prettierd",
+          "jsonlint",
+          "shellcheck"
+        },
+        auto_update = true,
+        run_on_start = true,
+        start_delay = 3000, -- 3 second delay
+        debounce_hours = 5, -- at least 5 hours between attempts to install/update
+      }
+    end
+
   }
   -- {
   --   "andweeb/presence.nvim",
