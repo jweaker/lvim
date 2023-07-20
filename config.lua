@@ -97,13 +97,11 @@ lvim.plugins = {
     "ObserverOfTime/nvimcord",
     lazy = false,
     config = function()
-      -- NOTE: these are the defaults
       require('nvimcord').setup {
         autostart = true,
       }
     end
   },
-
   {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     lazy = false,
