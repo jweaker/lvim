@@ -12,7 +12,7 @@ vim.opt.relativenumber = true
 
 lvim.format_on_save = true
 lvim.transparent_window = false
-lvim.colorscheme = "onedark"
+lvim.colorscheme = "monokai-pro-spectrum"
 lvim.keys.normal_mode["<Esc>"] = ":noh <CR>"
 lvim.keys.normal_mode["<Tab>"] = "<cmd>BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-Tab>"] = "<cmd>BufferLineCyclePrev<CR>"
@@ -100,7 +100,6 @@ lvim.plugins = {
 		"ObserverOfTime/nvimcord",
 		lazy = false,
 		config = function()
-			-- NOTE: these are the defaults
 			require("nvimcord").setup({
 				autostart = true,
 			})
@@ -113,7 +112,12 @@ lvim.plugins = {
 			vim.fn["mkdp#util#install"]()
 		end,
 	},
-
+	{
+		"loctvl842/monokai-pro.nvim",
+		config = function()
+			require("monokai-pro").setup()
+		end,
+	},
 	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		lazy = false,
