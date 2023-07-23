@@ -67,6 +67,10 @@ formatters.setup {
     command = "prettierd",
     filetypes = { "html", "markdown", "css", "javascript", "javascriptreact", "typescript", "typesriptreact" },
   },
+  {
+    command = "stylua",
+    filetypes = { "lua" }
+  }
 }
 
 
@@ -102,7 +106,11 @@ lvim.plugins = {
         autostart = true,
       }
     end
-  },
+  }, {
+  'iamcco/markdown-preview.nvim',
+  ft = "markdown",
+  build = function() vim.fn["mkdp#util#install"]() end,
+},
 
   {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -118,7 +126,8 @@ lvim.plugins = {
           "eslint_d",
           "prettierd",
           "jsonlint",
-          "shellcheck"
+          "shellcheck",
+          "stylua"
         },
         auto_update = true,
         run_on_start = true,
