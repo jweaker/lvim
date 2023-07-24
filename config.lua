@@ -12,7 +12,7 @@ vim.opt.relativenumber = true
 
 lvim.format_on_save = true
 lvim.transparent_window = false
-lvim.colorscheme = "monokai-pro-spectrum"
+lvim.colorscheme = "onedark"
 lvim.keys.normal_mode["<Esc>"] = ":noh <CR>"
 lvim.keys.normal_mode["<Tab>"] = "<cmd>BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-Tab>"] = "<cmd>BufferLineCyclePrev<CR>"
@@ -53,7 +53,7 @@ lsp_manager.setup("emmet_ls", {
 })
 lsp_manager.setup("bashls", {
 	single_file_support = true,
-	filetypes = { "zsh", "bash", "sh", "dash" },
+	filetypes = { "bash", "sh", "dash" },
 })
 
 linters.setup({
@@ -78,7 +78,7 @@ lvim.plugins = {
 		"navarasu/onedark.nvim",
 		config = function()
 			require("onedark").setup({
-				style = "dark",
+				style = "darker",
 			})
 			require("onedark").load()
 		end,
@@ -97,6 +97,17 @@ lvim.plugins = {
 		event = "InsertEnter",
 	},
 	{
+		"zbirenbaum/copilot-cmp",
+		event = "InsertEnter",
+		dependencies = { "zbirenbaum/copilot.lua" },
+		config = function()
+			vim.defer_fn(function()
+				require("copilot").setup() -- https://github.com/zbirenbaum/copilot.lua/blob/master/README.md#setup-and-configuration
+				require("copilot_cmp").setup() -- https://github.com/zbirenbaum/copilot-cmp/blob/master/README.md#configuration
+			end, 100)
+		end,
+	},
+	{
 		"ObserverOfTime/nvimcord",
 		lazy = false,
 		config = function()
@@ -110,12 +121,6 @@ lvim.plugins = {
 		ft = "markdown",
 		build = function()
 			vim.fn["mkdp#util#install"]()
-		end,
-	},
-	{
-		"loctvl842/monokai-pro.nvim",
-		config = function()
-			require("monokai-pro").setup()
 		end,
 	},
 	{
