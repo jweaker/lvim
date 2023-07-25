@@ -21,7 +21,10 @@ lvim.builtin.which_key.mappings["S"] = {
 	"Spectre",
 }
 lvim.builtin.which_key.mappings["u"] = {
-	vim.cmd.UndotreeToggle,
+	function()
+		vim.cmd.UndotreeToggle()
+		vim.cmd.UndotreeFocus()
+	end,
 	"UndoTree",
 }
 
