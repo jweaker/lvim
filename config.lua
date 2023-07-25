@@ -16,6 +16,14 @@ lvim.colorscheme = "onedark"
 lvim.keys.normal_mode["<Esc>"] = ":noh <CR>"
 lvim.keys.normal_mode["<Tab>"] = "<cmd>BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-Tab>"] = "<cmd>BufferLineCyclePrev<CR>"
+lvim.builtin.which_key.mappings["S"] = {
+	"<cmd>lua require('spectre').toggle()<CR>",
+	"Spectre",
+}
+lvim.builtin.which_key.mappings["u"] = {
+	vim.cmd.UndotreeToggle,
+	"UndoTree",
+}
 
 lvim.keys.normal_mode["<C-p>"] = "<cmd>Telescope git_files<CR>"
 lvim.builtin.which_key.mappings["f"] = { "<cmd>Telescope live_grep<CR>", "live grep" }
@@ -84,8 +92,20 @@ lvim.plugins = {
 		end,
 	},
 	{
+		"windwp/nvim-spectre",
+		event = "BufRead",
+		config = function()
+			require("spectre").setup()
+		end,
+	},
+	{
+		"mbbill/undotree",
+		event = "BufRead",
+	},
+	{
 		"windwp/nvim-ts-autotag",
 		event = "InsertEnter",
+		filetypes = { "html", "xml", "typescript", "typescriptreact", "javascript", "javascriptreact" },
 		config = function()
 			require("nvim-ts-autotag").setup()
 		end,
