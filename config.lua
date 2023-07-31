@@ -17,6 +17,12 @@ lvim.keys.normal_mode["<Esc>"] = ":noh <CR>"
 lvim.keys.normal_mode["<Tab>"] = "<cmd>BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-Tab>"] = "<cmd>BufferLineCyclePrev<CR>"
 lvim.builtin.which_key.mappings["S"] = {
+	name = "Session",
+	c = { "<cmd>lua require('persistence').load()<cr>", "Restore last session for current dir" },
+	l = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Restore last session" },
+	Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
+}
+lvim.builtin.which_key.mappings["s"]["s"] = {
 	"<cmd>lua require('spectre').toggle()<CR>",
 	"Spectre",
 }
@@ -92,6 +98,24 @@ lvim.plugins = {
 				style = "darker",
 			})
 			require("onedark").load()
+		end,
+	},
+	{
+		"folke/persistence.nvim",
+		event = "BufReadPre", -- this will only start session saving when an actual file sas opened
+		lazy = true,
+		config = function()
+			require("persistence").setup({
+				dir = vim.fn.expand(vim.fn.stdpath("config") .. "/session/"),
+				options = { "buffers", "curdir", "tabpages", "winsize" },
+			})
+		end,
+	},
+	{
+		"ggandor/leap.nvim",
+		name = "leap",
+		config = function()
+			require("leap").add_default_mappings()
 		end,
 	},
 	{
