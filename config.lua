@@ -54,24 +54,33 @@ vim.api.nvim_create_autocmd("DirChanged", {
 lvim.builtin.cmp.sources[#lvim.builtin.cmp.sources + 1] = { name = "cmp_tabnine" }
 lsp_manager.setup("tsserver", {
 	single_file_support = true,
-	filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+	-- filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
 })
 lsp_manager.setup("jsonls", {
 	single_file_support = true,
-	filetypes = { "json" },
+	-- filetypes = { "json" },
 })
 lsp_manager.setup("lua_ls", {
 	single_file_support = true,
-	filetypes = { "lua" },
+	-- filetypes = { "lua" },
 })
 lsp_manager.setup("emmet_ls", {
 	single_file_support = true,
-	filetypes = { "xml", "html" },
+	-- filetypes = { "xml", "html" },
 })
 lsp_manager.setup("bashls", {
 	single_file_support = true,
-	filetypes = { "bash", "sh", "dash" },
+	-- filetypes = { "bash", "sh", "dash" },
 })
+lsp_manager.setup("cssls", {
+	single_file_support = true,
+	-- filetypes = { "css" },
+})
+lsp_manager.setup("cssmodules_ls", {
+	single_file_support = true,
+	-- filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+})
+lsp_manager.setup("svelte", { single_file_support = true })
 
 linters.setup({
 	{ command = "eslint_d", filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" } },
@@ -95,7 +104,7 @@ lvim.plugins = {
 		"navarasu/onedark.nvim",
 		config = function()
 			require("onedark").setup({
-				style = "darker",
+				style = "warmer",
 			})
 			require("onedark").load()
 		end,
