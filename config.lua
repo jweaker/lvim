@@ -16,7 +16,7 @@ if vim.g.neovide then
 end
 
 lvim.format_on_save = true
-lvim.transparent_window = false
+lvim.transparent_window = true
 
 lvim.colorscheme = "onedark"
 lvim.keys.normal_mode["<Esc>"] = ":noh <CR>"
@@ -43,6 +43,8 @@ vim.keymap.set("n", "<M-P>", '"_dP')
 vim.keymap.set("v", "<M-P>", '"_dP')
 vim.keymap.set("o", "<M-P>", '"_dP')
 
+vim.keymap.set("i", "<C-BS>", "<C-W>")
+
 lvim.builtin.which_key.mappings["S"] = {
 	name = "Session",
 	c = { "<cmd>lua require('persistence').load()<cr>", "Restore last session for current dir" },
@@ -64,7 +66,6 @@ lvim.builtin.which_key.mappings["u"] = {
 lvim.keys.normal_mode["<C-p>"] = "<cmd>Telescope git_files<CR>"
 lvim.builtin.which_key.mappings["f"] = { "<cmd>Telescope live_grep<CR>", "live grep" }
 
-lvim.keys.insert_mode["<C-BS>"] = "<C-W>"
 lvim.builtin.telescope.defaults.mappings.i["<C-j>"] = actions.move_selection_next
 lvim.builtin.telescope.defaults.mappings.i["<C-j>"] = actions.move_selection_next
 lvim.builtin.telescope.defaults.mappings.i["<C-k>"] = actions.move_selection_previous
@@ -199,6 +200,7 @@ lvim.plugins = {
 		"navarasu/onedark.nvim",
 		config = function()
 			require("onedark").setup({
+				transparent = true,
 				style = "warmer",
 			})
 			require("onedark").load()
