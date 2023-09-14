@@ -9,6 +9,7 @@ local lsp_manager = require("lvim.lsp.manager")
 local actions = require("telescope.actions")
 
 vim.opt.relativenumber = true
+vim.opt.spell = true
 if vim.g.neovide then
 	vim.o.guifont = "JetBrainsMono Nerd Font:h13"
 	vim.g.neovide_hide_mouse_when_typing = true
@@ -16,10 +17,32 @@ end
 
 lvim.format_on_save = true
 lvim.transparent_window = false
+
 lvim.colorscheme = "onedark"
 lvim.keys.normal_mode["<Esc>"] = ":noh <CR>"
 lvim.keys.normal_mode["<Tab>"] = "<cmd>BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-Tab>"] = "<cmd>BufferLineCyclePrev<CR>"
+
+vim.keymap.set("n", "H", "^")
+vim.keymap.set("v", "H", "^")
+vim.keymap.set("o", "H", "^")
+
+vim.keymap.set("n", "L", "$")
+vim.keymap.set("v", "L", "$")
+vim.keymap.set("o", "L", "$")
+
+vim.keymap.set("n", "<M-d>", '"_d')
+vim.keymap.set("v", "<M-d>", '"_d')
+vim.keymap.set("o", "<M-d>", '"_d')
+
+vim.keymap.set("n", "<M-c>", '"_c')
+vim.keymap.set("v", "<M-c>", '"_c')
+vim.keymap.set("o", "<M-c>", '"_c')
+
+vim.keymap.set("n", "<M-P>", '"_dP')
+vim.keymap.set("v", "<M-P>", '"_dP')
+vim.keymap.set("o", "<M-P>", '"_dP')
+
 lvim.builtin.which_key.mappings["S"] = {
 	name = "Session",
 	c = { "<cmd>lua require('persistence').load()<cr>", "Restore last session for current dir" },
@@ -43,41 +66,44 @@ lvim.builtin.which_key.mappings["f"] = { "<cmd>Telescope live_grep<CR>", "live g
 
 lvim.keys.insert_mode["<C-BS>"] = "<C-W>"
 lvim.builtin.telescope.defaults.mappings.i["<C-j>"] = actions.move_selection_next
+lvim.builtin.telescope.defaults.mappings.i["<C-j>"] = actions.move_selection_next
 lvim.builtin.telescope.defaults.mappings.i["<C-k>"] = actions.move_selection_previous
 lvim.builtin.treesitter.rainbow.enable = true
 lvim.builtin.treesitter.autotag.enable = true
 lvim.builtin.treesitter.autotag.filetypes =
 	{ "html", "xml", "typescript", "typescriptreact", "javascript", "javascriptreact" }
 
--- vim.api.nvim_create_autocmd("DirChanged", {
--- 	callback = function()
--- 		local Discord = require("nvimcord.discord")
--- 		Discord.config.workspace_name = vim.fs.basename(vim.v.event.cwd)
--- 	end,
--- })
+vim.api.nvim_create_autocmd("DirChanged", {
+	callback = function()
+		local Discord = require("nvimcord.discord")
+		Discord.config.workspace_name = vim.fs.basename(vim.v.event.cwd)
+	end,
+})
 lvim.builtin.cmp.sources[#lvim.builtin.cmp.sources + 1] = { name = "cmp_tabnine" }
-lsp_manager.setup("tsserver", {
-	single_file_support = true,
-})
-lsp_manager.setup("jsonls", {
-	single_file_support = true,
-})
-lsp_manager.setup("lua_ls", {
-	single_file_support = true,
-})
-lsp_manager.setup("emmet_ls", {
-	single_file_support = true,
-})
-lsp_manager.setup("bashls", {
-	single_file_support = true,
-})
-lsp_manager.setup("cssls", {
-	single_file_support = true,
-})
-lsp_manager.setup("cssmodules_ls", {
-	single_file_support = true,
-})
-lsp_manager.setup("svelte", { single_file_support = true })
+local function lsp_setup()
+	lsp_manager.setup("tsserver", {
+		single_file_support = true,
+	})
+	lsp_manager.setup("jsonls", {
+		single_file_support = true,
+	})
+	lsp_manager.setup("lua_ls", {
+		single_file_support = true,
+	})
+	lsp_manager.setup("emmet_ls", {
+		single_file_support = true,
+	})
+	lsp_manager.setup("bashls", {
+		single_file_support = true,
+	})
+	lsp_manager.setup("cssls", {
+		single_file_support = true,
+	})
+	lsp_manager.setup("cssmodules_ls", {
+		single_file_support = true,
+	})
+	lsp_manager.setup("svelte", { single_file_support = true })
+end
 
 linters.setup({
 	{ command = "eslint_d", filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" } },
@@ -88,7 +114,16 @@ linters.setup({
 formatters.setup({
 	{
 		command = "prettierd",
-		filetypes = { "html", "markdown", "css", "javascript", "javascriptreact", "typescript", "typesriptreact" },
+		filetypes = {
+			"html",
+			"markdown",
+			"css",
+			"javascript",
+			"javascriptreact",
+			"typescript",
+			"typescriptreact",
+			"tsx",
+		},
 	},
 	{
 		command = "stylua",
@@ -271,11 +306,15 @@ lvim.plugins = {
 					"lua_ls",
 					"emmet_ls",
 					"bash-language-server",
+					"css-lsp",
+					"cssmodules-language-server",
+					"svelte-language-server",
 					"eslint_d",
-					"prettierd",
 					"jsonlint",
 					"shellcheck",
+					"prettierd",
 					"stylua",
+					"rust_analyzer",
 				},
 				auto_update = true,
 				run_on_start = true,
@@ -285,3 +324,4 @@ lvim.plugins = {
 		end,
 	},
 }
+lsp_setup()
