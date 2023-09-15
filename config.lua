@@ -55,6 +55,11 @@ lvim.builtin.which_key.mappings["s"]["s"] = {
 	"<cmd>lua require('spectre').toggle()<CR>",
 	"Spectre",
 }
+lvim.builtin.which_key.mappings["l"]["D"] = lvim.builtin.which_key.mappings["l"]["d"]
+lvim.builtin.which_key.mappings["l"]["d"] = {
+	"<cmd>Trouble<CR>",
+	"Trouble",
+}
 lvim.builtin.which_key.mappings["u"] = {
 	function()
 		vim.cmd.UndotreeToggle()
@@ -66,9 +71,17 @@ lvim.builtin.which_key.mappings["u"] = {
 lvim.keys.normal_mode["<C-p>"] = "<cmd>Telescope git_files<CR>"
 lvim.builtin.which_key.mappings["f"] = { "<cmd>Telescope live_grep<CR>", "live grep" }
 
+local trouble = require("trouble.providers.telescope")
+
 lvim.builtin.telescope.defaults.mappings.i["<C-j>"] = actions.move_selection_next
-lvim.builtin.telescope.defaults.mappings.i["<C-j>"] = actions.move_selection_next
+lvim.builtin.telescope.defaults.mappings.n["<C-j>"] = actions.move_selection_next
+
 lvim.builtin.telescope.defaults.mappings.i["<C-k>"] = actions.move_selection_previous
+lvim.builtin.telescope.defaults.mappings.n["<C-k>"] = actions.move_selection_previous
+
+lvim.builtin.telescope.defaults.mappings.i["<C-t>"] = trouble.open_with_trouble
+lvim.builtin.telescope.defaults.mappings.n["<C-t>"] = trouble.open_with_trouble
+
 lvim.builtin.treesitter.rainbow.enable = true
 lvim.builtin.treesitter.autotag.enable = true
 lvim.builtin.treesitter.autotag.filetypes =
@@ -134,11 +147,41 @@ formatters.setup({
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "rust_analyzer" })
 
 lvim.plugins = {
+
+	"ThePrimeagen/vim-be-good",
 	{
 		"karb94/neoscroll.nvim",
 		lazy = false,
 		config = function()
-			require("neoscroll").setup()
+			local neoscroll = require("neoscroll")
+
+			local easing = "sine"
+			local zz_time_ms = 300
+			local jump_time_ms = 300
+
+			neoscroll.setup({
+				post_hook = function(info)
+					if info ~= "center" then
+						return
+					end
+
+					-- The `defer_fn` is a bit of a hack.
+					-- We use it so that `neoscroll.init.scroll` will be false when we call `neoscroll.zz`
+					-- As long as we don't input another neoscroll mapping in the timeout,
+					-- we should be able to center the cursor.
+					local defer_time_ms = 10
+					vim.defer_fn(function()
+						neoscroll.zz(zz_time_ms, easing)
+					end, defer_time_ms)
+				end,
+			})
+
+			local mappings = {}
+
+			mappings["<C-u>"] = { "scroll", { "-vim.wo.scroll", "true", jump_time_ms, easing, "'center'" } }
+			mappings["<C-d>"] = { "scroll", { "vim.wo.scroll", "true", jump_time_ms, easing, "'center'" } }
+
+			require("neoscroll.config").set_mappings(mappings)
 		end,
 	},
 	{
@@ -232,6 +275,15 @@ lvim.plugins = {
 		end,
 	},
 	{
+		"folke/trouble.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		},
+	},
+	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		config = function()
@@ -246,7 +298,7 @@ lvim.plugins = {
 				},
 				-- you can enable a preset for easier configuration
 				presets = {
-					bottom_search = true, -- use a classic bottom cmdline for search
+					bottom_search = false, -- use a classic bottom cmdline for search
 					command_palette = true, -- position the cmdline and popupmenu together
 					long_message_to_split = true, -- long messages will be sent to a split
 					inc_rename = false, -- enables an input dialog for inc-rename.nvim
