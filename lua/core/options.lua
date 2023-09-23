@@ -9,3 +9,4 @@ vim.opt.spell = true
 lvim.format_on_save = true
 lvim.transparent_window = true
 lvim.colorscheme = "onedark"
+-- lvim.builtin.bufferline.active =
