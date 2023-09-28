@@ -27,10 +27,12 @@ vim.keymap.set("o", "<M-x>", '"_x')
 vim.keymap.set("i", "<C-BS>", "<C-W>")
 vim.keymap.set("t", "<C-BS>", "<C-W>")
 
-local ui = require("harpoon.ui")
-for i = 1, 9, 1 do
-	local i_string = tostring(i)
-	lvim.keys.normal_mode["<leader>" .. i_string] = function()
-		ui.nav_file(i)
+local success, ui = pcall(require, "harpoon.ui")
+if success then
+	for i = 1, 9, 1 do
+		local i_string = tostring(i)
+		lvim.keys.normal_mode["<leader>" .. i_string] = function()
+			ui.nav_file(i)
+		end
 	end
 end
