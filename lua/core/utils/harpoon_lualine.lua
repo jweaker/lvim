@@ -23,6 +23,13 @@ function M.filename()
 	return padding .. currentFile .. padding
 end
 
+local iconMap = {
+	"󰎤",
+	"󰎧",
+	"󰎪",
+	"󰎭",
+	"󰎱",
+}
 function M.harpoonFiles()
 	if vim.api.nvim_buf_get_option(0, "buftype") ~= "" then
 		return ""
@@ -34,8 +41,8 @@ function M.harpoonFiles()
 	for key, value in pairs(tabela) do
 		local file = vim.fn.split(value["filename"], "/")
 		file = file[#file]
-		file = file == currentFile and file .. "*" or file .. " "
-		table.insert(ret, "  " .. key .. " " .. file)
+		file = file == currentFile and file .. "" or file .. " "
+		table.insert(ret, " " .. iconMap[key] .. " " .. file)
 	end
 	return table.concat(ret)
 end

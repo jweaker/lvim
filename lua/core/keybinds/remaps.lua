@@ -28,11 +28,14 @@ vim.keymap.set("i", "<C-BS>", "<C-W>")
 vim.keymap.set("t", "<C-BS>", "<C-W>")
 
 local success, ui = pcall(require, "harpoon.ui")
+
 if success then
-	for i = 1, 9, 1 do
-		local i_string = tostring(i)
-		lvim.keys.normal_mode["<leader>" .. i_string] = function()
-			ui.nav_file(i)
-		end
-	end
+  for i = 1, 9, 1 do
+    local i_string = tostring(i)
+    lvim.keys.normal_mode["<leader>" .. i_string] = function()
+      ui.nav_file(i)
+    end
+  end
+else
+  print("Error: Failed to require 'harpoon.ui'. Make sure the plugin is properly installed and configured.")
 end
