@@ -8,7 +8,19 @@ require("core.plugins.lualine")
 require("core.plugins.treesitter")
 
 lvim.plugins = {
-
+	{
+		"Exafunction/codeium.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"hrsh7th/nvim-cmp",
+		},
+		config = function()
+			require("codeium").setup({})
+			local newSource = { name = "codeium" }
+			table.insert(lvim.builtin.cmp.sources, 2, newSource)
+			lvim.builtin.cmp.formatting.kind_icons.Codeium = ""
+		end,
+	},
 	{
 		"kylechui/nvim-surround",
 		version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -137,12 +149,6 @@ lvim.plugins = {
 		config = function()
 			require("nvim-ts-autotag").setup()
 		end,
-	},
-	{
-		"tzachar/cmp-tabnine",
-		build = "./install.sh",
-		dependencies = "hrsh7th/nvim-cmp",
-		event = "InsertEnter",
 	},
 	{
 		"ObserverOfTime/nvimcord",
