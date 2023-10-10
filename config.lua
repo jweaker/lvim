@@ -17,7 +17,7 @@ lvim.plugins = {
 		config = function()
 			require("codeium").setup({})
 			local newSource = { name = "codeium" }
-			table.insert(lvim.builtin.cmp.sources, 2, newSource)
+			table.insert(lvim.builtin.cmp.sources, newSource)
 			lvim.builtin.cmp.formatting.kind_icons.Codeium = ""
 		end,
 	},
