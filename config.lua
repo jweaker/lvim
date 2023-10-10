@@ -31,15 +31,6 @@ lvim.plugins = {
 			})
 		end,
 	},
-	"ThePrimeagen/vim-be-good",
-	{
-		"ThePrimeagen/harpoon",
-		lazy = false,
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-		config = true,
-	},
 	{
 		"karb94/neoscroll.nvim",
 		lazy = false,
