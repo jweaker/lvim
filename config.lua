@@ -39,13 +39,6 @@ lvim.plugins = {
 		end,
 	},
 	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-		priority = 1000,
-		opts = { flavour = "mocha" },
-		config = true,
-	},
-	{
 		"simrat39/rust-tools.nvim",
 		ft = { "rust", "rs" }, -- IMPORTANT: re-enabling this seems to break inlay-hints
 		config = function()
