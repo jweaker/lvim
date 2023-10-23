@@ -47,14 +47,6 @@ lvim.plugins = {
 		end,
 	},
 	{
-		"ThePrimeagen/harpoon",
-		lazy = false,
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-		config = true,
-	},
-	{
 		"simrat39/rust-tools.nvim",
 		ft = { "rust", "rs" }, -- IMPORTANT: re-enabling this seems to break inlay-hints
 		config = function()
