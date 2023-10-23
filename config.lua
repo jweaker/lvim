@@ -22,6 +22,14 @@ lvim.plugins = {
 		end,
 	},
 	{
+		"ThePrimeagen/harpoon",
+		lazy = false,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		config = true,
+	},
+	{
 		"kylechui/nvim-surround",
 		version = "*", -- Use for stability; omit to use `main` branch for the latest features
 		event = "VeryLazy",
