@@ -69,7 +69,6 @@ lvim.plugins = {
 		opts = {},
     -- stylua: ignore
     keys = {
-
       {
         "s",
         mode = { "n", "o", "x" },
@@ -97,7 +96,6 @@ lvim.plugins = {
       },
     },
 	},
-
 	{
 		"folke/persistence.nvim",
 		event = "BufReadPre", -- this will only start session saving when an actual file sas opened
@@ -143,7 +141,7 @@ lvim.plugins = {
 		end,
 	},
 	{
-		"ObserverOfTime/nvimcord",
+		"andweeb/presence.nvim",
 		lazy = false,
 		config = function()
 			require("core.plugins.nvimcord")
