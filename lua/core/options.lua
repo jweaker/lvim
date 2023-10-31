@@ -5,7 +5,7 @@ end
 
 vim.opt.showmode = false
 vim.opt.relativenumber = true
-vim.opt.spell = true
+-- vim.opt.spell = true
 lvim.format_on_save = true
 lvim.transparent_window = true
 lvim.colorscheme = "onedark"

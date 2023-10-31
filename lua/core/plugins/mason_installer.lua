@@ -4,6 +4,7 @@ require("mason-tool-installer").setup({
     "jsonls",
     "lua_ls",
     "emmet_ls",
+    "sumenko_lua",
     "bash-language-server",
     "css-lsp",
     "cssmodules-language-server",
